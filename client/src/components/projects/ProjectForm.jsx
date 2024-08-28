@@ -4,6 +4,7 @@ import { FaCalendar, FaMoneyBillWave, FaUserTie } from "react-icons/fa";
 import { IoIosCreate, IoIosListBox } from "react-icons/io";
 import { CREATE_PROJECT } from "../../graphql/mutations";
 import { GET_CLIENTS_PROJECT_FORM, GET_PROJECTS } from "../../graphql/queries";
+import { useNavigate } from "react-router-dom";
 
 function ProjectForm() {
   const [name, setName] = useState("");
@@ -13,6 +14,8 @@ function ProjectForm() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [budget, setBudget] = useState("");
+
+  const navigate = useNavigate();
 
   const { data } = useQuery(GET_CLIENTS_PROJECT_FORM);
 
@@ -41,10 +44,9 @@ function ProjectForm() {
       setStartDate("");
       setEndDate("");
       setBudget("");
-      alert("Project added successfully!");
+      navigate("/projects");
     } catch (err) {
       console.error(err);
-      alert("Failed to add project.");
     }
   };
 

@@ -57,7 +57,7 @@ const resolvers = {
     deleteProject: async (parent, { id }) => {
       const project = await Project.findById(id);
       if (project) {
-        await project.remove();
+        await Project.findByIdAndDelete(id);
         return true;
       }
       return false;
@@ -87,9 +87,12 @@ const resolvers = {
       return false;
     },
     // Create a new task
-    createTask: async (parent, args) => {
+    createTask: async (parent, { title, description, dueDate, project }) => {
       const task = new Task({
-        ...args,
+        title,
+        description,
+        dueDate,
+        project,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
@@ -98,11 +101,10 @@ const resolvers = {
       await task.save();
 
       // Update the project with the new task reference
-      await Project.findByIdAndUpdate(projectId, {
+      await Project.findByIdAndUpdate(project, {
         $push: { tasks: task._id },
       });
-
-      return task.populate("project").execPopulate();
+      return await task.populate("project");
     },
     // Update an existing task
     updateTask: async (parent, { id, ...updateFields }) => {
@@ -115,7 +117,7 @@ const resolvers = {
     deleteTask: async (parent, { id }) => {
       const task = await Task.findById(id);
       if (task) {
-        await task.remove();
+        await Task.findByIdAndDelete(id);
         return true;
       }
       return false;

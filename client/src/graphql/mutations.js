@@ -42,3 +42,40 @@ export const CREATE_PROJECT = gql`
     }
   }
 `;
+
+export const DELETE_PROJECT = gql`
+  mutation DeleteProject($deleteProjectId: ID!) {
+    deleteProject(id: $deleteProjectId)
+  }
+`;
+
+export const CREATE_TASK = gql`
+  mutation CreateTask(
+    $title: String!
+    $description: String!
+    $dueDate: String!
+    $projectId: ID!
+  ) {
+    createTask(
+      title: $title
+      description: $description
+      dueDate: $dueDate
+      project: $projectId
+    ) {
+      id
+      title
+      description
+      dueDate
+      project {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const DELETE_TASK = gql`
+  mutation DeleteTask($deleteTaskId: ID!) {
+    deleteTask(id: $deleteTaskId)
+  }
+`;

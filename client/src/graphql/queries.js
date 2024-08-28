@@ -43,3 +43,44 @@ export const GET_PROJECTS = gql`
     }
   }
 `;
+
+export const GET_PROJECT_BY_ID = gql`
+  query Project($id: ID!) {
+    project(id: $id) {
+      id
+      name
+      description
+      startDate
+      endDate
+      status
+      client {
+        id
+        name
+      }
+      tasks {
+        id
+        title
+      }
+      budget
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const GET_ALL_TASKS = gql`
+  query Tasks {
+    tasks {
+      id
+      title
+      description
+      createdAt
+      updatedAt
+      dueDate
+      project {
+        id
+        name
+      }
+    }
+  }
+`;

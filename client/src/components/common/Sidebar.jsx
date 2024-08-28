@@ -66,6 +66,7 @@ function Sidebar() {
                   <Link
                     className="block group relative overflow-hidden mb-3 text-sm font-semibold rounded px-4 py-2 "
                     to="/projects"
+                    onClick={() => setIsSidebarOpen(false)}
                   >
                     <span className="absolute inset-y-0 left-0 w-[0px] bg-white transition-all group-hover:w-full group-active:bg-teal-500"></span>
                     <span className="relative text-sm font-medium transition-colors text-white group-hover:text-black flex items-center gap-2">
@@ -88,7 +89,8 @@ function Sidebar() {
                 <li>
                   <Link
                     className="block group relative overflow-hidden mb-3 text-sm font-semibold rounded px-4 py-2 "
-                    to="#"
+                    to="/tasks"
+                    onClick={() => setIsSidebarOpen(false)}
                   >
                     <span className="absolute inset-y-0 left-0 w-[0px] bg-white transition-all group-hover:w-full group-active:bg-teal-500"></span>
                     <span className="relative text-sm font-medium transition-colors text-white group-hover:text-black flex items-center gap-2">

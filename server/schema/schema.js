@@ -34,6 +34,7 @@ export const typeDefs = `#graphql
         updatedAt: String!
     }
 
+
     # Enum for project statuses
     enum ProjectStatus {
         NOT_STARTED
@@ -52,6 +53,9 @@ export const typeDefs = `#graphql
 
         tasks: [Task!]!
         task(id: ID!): Task
+
+        # assignees : [Assignee!]!
+        # assignee(id : ID!) : Assignee
     }
 
     # Mutations for creating and updating projects and clients
@@ -104,7 +108,7 @@ export const typeDefs = `#graphql
             title: String!,
             description: String, 
             dueDate: String, 
-            projectId: ID!
+            project: ID!
         ): Task!
 
         # Update a Task

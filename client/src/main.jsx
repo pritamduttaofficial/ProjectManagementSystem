@@ -7,6 +7,9 @@ import ClientsPage from "./pages/ClientsPage.jsx";
 import ClientForm from "./components/clients/ClientForm.jsx";
 import ProjectForm from "./components/projects/ProjectForm.jsx";
 import ProjectsPage from "./pages/ProjectsPage.jsx";
+import ProjectDetails from "./components/projects/ProjectDetails.jsx";
+import TaskForm from "./components/tasks/TaskForm.jsx";
+import TasksPage from "./pages/TasksPage.jsx";
 
 const client = new ApolloClient({
   uri: "http://localhost:8000/graphql",
@@ -33,6 +36,18 @@ const router = createBrowserRouter([
       {
         path: "/projects",
         element: <ProjectsPage />,
+      },
+      {
+        path: "/project/:id",
+        element: <ProjectDetails />,
+      },
+      {
+        path: "/tasks",
+        element: <TasksPage />,
+      },
+      {
+        path: "/task-form",
+        element: <TaskForm />,
       },
     ],
   },
