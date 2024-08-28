@@ -44,7 +44,7 @@ const resolvers = {
         $push: { projects: project._id },
       });
 
-      return project.populate("client tasks").execPopulate();
+      return project.populate("client tasks");
     },
     // Update an existing project
     updateProject: async (parent, { id, ...updateFields }) => {
@@ -81,7 +81,7 @@ const resolvers = {
     deleteClient: async (parent, { id }) => {
       const client = await Client.findById(id);
       if (client) {
-        await client.remove();
+        await Client.findByIdAndDelete(id);
         return true;
       }
       return false;

@@ -64,7 +64,7 @@ export const typeDefs = `#graphql
             startDate: String
             endDate: String
             budget: Float
-            clientId: ID!
+            client: ID!
         ): Project!
 
         # Update an existing project
