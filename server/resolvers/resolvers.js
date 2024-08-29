@@ -40,7 +40,7 @@ const resolvers = {
       await project.save();
 
       // Update the client with the new project reference
-      await Client.findByIdAndUpdate(args.clientId, {
+      await Client.findByIdAndUpdate(args.client, {
         $push: { projects: project._id },
       });
 
@@ -57,6 +57,10 @@ const resolvers = {
     deleteProject: async (parent, { id }) => {
       const project = await Project.findById(id);
       if (project) {
+        // remove the project reference from the client's doc
+        await Client.findByIdAndUpdate(project.client, {
+          $pull: { projects: project._id },
+        });
         await Project.findByIdAndDelete(id);
         return true;
       }
@@ -117,6 +121,10 @@ const resolvers = {
     deleteTask: async (parent, { id }) => {
       const task = await Task.findById(id);
       if (task) {
+        // Remove the task from the project's reference
+        await Project.findByIdAndUpdate(task.project._id, {
+          $pull: { tasks: task._id },
+        });
         await Task.findByIdAndDelete(id);
         return true;
       }

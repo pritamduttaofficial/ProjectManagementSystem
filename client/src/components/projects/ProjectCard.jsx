@@ -26,14 +26,14 @@ function ProjectCard({ project }) {
               {project.name}
             </h3>
 
-            <p className="mt-1 text-xs font-medium text-white text-opacity-50">
+            <p className="mt-1 text-xs font-semibold text-white text-opacity-50">
               By {project.client?.name}
             </p>
           </div>
         </div>
 
         <div className="mt-4">
-          <p className="text-pretty text-sm text-white">
+          <p className="text-pretty text-sm text-white font-semibold">
             {project.description}
           </p>
         </div>
@@ -43,14 +43,18 @@ function ProjectCard({ project }) {
             <dt className="text-sm font-medium text-white text-opacity-50">
               Started
             </dt>
-            <dd className="text-xs text-white">{project.startDate}</dd>
+            <dd className="text-xs text-white font-semibold">
+              {project.startDate}
+            </dd>
           </div>
 
           <div className="flex flex-col-reverse">
             <dt className="text-sm font-medium text-white text-opacity-50">
               Deadline
             </dt>
-            <dd className="text-xs text-white">{project.endDate}</dd>
+            <dd className="text-xs text-white font-semibold">
+              {project.endDate}
+            </dd>
           </div>
         </dl>
       </Link>

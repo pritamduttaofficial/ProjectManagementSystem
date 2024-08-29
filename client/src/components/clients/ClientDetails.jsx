@@ -5,11 +5,15 @@ import { MdClear, MdDelete, MdEdit } from "react-icons/md";
 import { GET_CLIENTS } from "../../graphql/queries";
 import { DELETE_CLIENT } from "../../graphql/mutations";
 import getTimeAgo from "../../utils/getTimeAgo.js";
+import ClientEditForm from "./ClientEditForm.jsx";
 
 function ClientDetails() {
   const { loading, error, data } = useQuery(GET_CLIENTS);
   const [selectedClient, setSelectedClient] = useState(null);
+  const [editingClient, setEditingClient] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+
+  console.log(selectedClient);
 
   const [deleteClient] = useMutation(DELETE_CLIENT, {
     refetchQueries: [{ query: GET_CLIENTS }],
@@ -77,7 +81,7 @@ function ClientDetails() {
                 <dt className="font-medium text-gray-900 dark:text-white">
                   Name
                 </dt>
-                <dd className="text-gray-700 sm:col-span-2 dark:text-gray-200">
+                <dd className="text-gray-700 sm:col-span-2 dark:text-gray-200 font-semibold">
                   {selectedClient.name}
                 </dd>
               </div>
@@ -85,7 +89,7 @@ function ClientDetails() {
                 <dt className="font-medium text-gray-900 dark:text-white">
                   Email
                 </dt>
-                <dd className="text-gray-700 sm:col-span-2 dark:text-gray-200">
+                <dd className="text-gray-700 sm:col-span-2 dark:text-gray-200 font-semibold">
                   {selectedClient.email}
                 </dd>
               </div>
@@ -93,15 +97,27 @@ function ClientDetails() {
                 <dt className="font-medium text-gray-900 dark:text-white">
                   Phone
                 </dt>
-                <dd className="text-gray-700 sm:col-span-2 dark:text-gray-200">
+                <dd className="text-gray-700 sm:col-span-2 dark:text-gray-200 font-semibold">
                   {selectedClient.phone}
                 </dd>
               </div>
+
+              <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
+                <dt className="font-medium text-gray-900 dark:text-white">
+                  Projects
+                </dt>
+                <dd className="text-gray-700 sm:col-span-2 dark:text-gray-200 font-semibold">
+                  {selectedClient.projects
+                    .map((project) => project.name)
+                    .join(", ")}
+                </dd>
+              </div>
+
               <div className="grid grid-cols-1 gap-1 py-3 sm:grid-cols-3 sm:gap-4">
                 <dt className="font-medium text-gray-900 dark:text-white">
                   Joined
                 </dt>
-                <dd className="text-gray-700 sm:col-span-2 dark:text-gray-200">
+                <dd className="text-gray-700 sm:col-span-2 dark:text-gray-200 font-semibold">
                   {getTimeAgo(parseInt(selectedClient.createdAt))}
                 </dd>
               </div>
@@ -116,7 +132,7 @@ function ClientDetails() {
                   <MdDelete className="text-2xl" />
                 </button>
                 <button
-                  onClick={() => handleDelete(selectedClient.id)}
+                  onClick={() => setEditingClient(selectedClient)}
                   className="bg-teal-300 text-black px-4 py-2 rounded hover:bg-teal-400 duration-200"
                 >
                   <MdEdit className="text-xl" />
@@ -131,6 +147,12 @@ function ClientDetails() {
             </div>
           </div>
         </div>
+      )}
+      {editingClient && (
+        <ClientEditForm
+          client={editingClient}
+          closeModal={() => setEditingClient(null)}
+        />
       )}
     </div>
   );

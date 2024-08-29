@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_ALL_TASKS } from "../../graphql/queries";
 import { FaEdit, FaTrash } from "react-icons/fa";
@@ -7,10 +7,12 @@ import Loader from "../common/Loader";
 import { DELETE_TASK } from "../../graphql/mutations";
 import { useNavigate } from "react-router-dom";
 import { MdAddCircleOutline } from "react-icons/md";
+import TaskEditForm from "./TaskEditForm";
 
 const TaskDetails = () => {
   const { loading, error, data } = useQuery(GET_ALL_TASKS);
   const navigate = useNavigate();
+  const [editingTask, setEditingTask] = useState(null);
 
   const [deleteTask] = useMutation(DELETE_TASK, {
     refetchQueries: [{ query: GET_ALL_TASKS }],
@@ -51,17 +53,22 @@ const TaskDetails = () => {
               <h2 className="text-xl font-bold text-white mb-2">
                 {task.title}
               </h2>
-              <p className="text-slate-400 text-sm mb-4">{task.description}</p>
-              <div className="text-sm gap-2 text-slate-400 mb-4">
+              <p className="text-slate-400 text-sm mb-4 font-semibold">
+                {task.description}
+              </p>
+              <div className="text-sm gap-2 text-slate-400 mb-4 font-semibold">
                 Due : {task.dueDate}
               </div>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-slate-400 font-semibold">
                 Project : {task.project.name}
               </p>
             </div>
             <div className="flex justify-between">
               <div className="mt-4 flex gap-4">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+                <button
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg"
+                  onClick={() => setEditingTask(task)}
+                >
                   <FaEdit />
                 </button>
                 <button
@@ -78,6 +85,12 @@ const TaskDetails = () => {
           </div>
         ))}
       </div>
+      {editingTask && (
+        <TaskEditForm
+          task={editingTask}
+          closeModal={() => setEditingTask(null)}
+        />
+      )}
     </div>
   );
 };

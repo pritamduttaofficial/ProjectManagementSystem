@@ -8,6 +8,10 @@ export const GET_CLIENTS = gql`
       email
       phone
       createdAt
+      projects {
+        id
+        name
+      }
     }
   }
 `;
@@ -35,6 +39,7 @@ export const GET_PROJECTS = gql`
       id
       startDate
       status
+      budget
       tasks {
         id
         title

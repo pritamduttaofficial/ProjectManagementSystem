@@ -23,7 +23,7 @@ function ClientForm() {
       setName("");
       setEmail("");
       setPhone("");
-      navigate("/");
+      navigate("/clients");
     } catch (err) {
       console.error(err);
     }
