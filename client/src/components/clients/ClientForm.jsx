@@ -14,6 +14,11 @@ function ClientForm() {
 
   const [createClient, { loading, error }] = useMutation(CREATE_CLIENT, {
     refetchQueries: [{ query: GET_CLIENTS }],
+    onCompleted: () => {
+      navigate("/clients", {
+        state: { alertMessage: "Client created successfully!" },
+      });
+    },
   });
 
   const handleSubmit = async (e) => {
@@ -23,7 +28,6 @@ function ClientForm() {
       setName("");
       setEmail("");
       setPhone("");
-      navigate("/clients");
     } catch (err) {
       console.error(err);
     }

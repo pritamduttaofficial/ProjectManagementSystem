@@ -81,7 +81,7 @@ const Dashboard = () => {
       </h1>
 
       {/* Overview Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12 mx-10">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6 mx-10">
         {/* Projects Overview */}
         <div className="bg-gradient-to-tl from-teal-300 via-violet-400 to-pink-500 shadow-lg rounded-lg p-6">
           <div className="flex items-center justify-between mb-4">
@@ -194,8 +194,8 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Budget & Calendar Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12 mx-10">
+      {/* Budget & Recent Activity */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 mx-10">
         {/* Budget Overview */}
         <div className="bg-gradient-to-tl from-teal-300 via-violet-400 to-pink-500 shadow-lg rounded-lg p-6">
           <div className="flex items-center justify-between mb-4">
@@ -227,57 +227,56 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Calendar */}
+        {/* Recent Activity */}
         <div className="bg-gradient-to-tl from-teal-300 via-violet-400 to-pink-500 shadow-lg rounded-lg p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Upcoming Deadlines</h2>
-            <FaCalendarAlt className="text-white text-2xl" />
+            <h2 className="text-xl font-semibold">Recent Activity</h2>
+            <FaBusinessTime className="text-white text-2xl" />
           </div>
-          <div className="space-y-2 px-4">
-            <p className="font-semibold flex items-center gap-2">
+          <ul className="space-y-2 px-4">
+            <li className="font-semibold flex items-center gap-2">
               <FaDotCircle />
-              Task Deadline:{" "}
-              <span className="font-semibold text-white text-lg">
-                {upcomingTaskDeadline
-                  ? dayjs(upcomingTaskDeadline?.dueDate).format("MMMM D, YYYY")
-                  : "None"}
-              </span>
-            </p>
-            <p className="font-semibold flex items-center gap-2">
+              Latest Task: <p className="text-lg">{latestTask?.title}</p>
+            </li>
+            <li className="font-semibold flex items-center gap-2">
               <FaDotCircle />
-              Project Deadline:{" "}
-              <span className="font-semibold text-white text-lg">
-                {upcomingProjectDeadline
-                  ? dayjs(upcomingProjectDeadline?.endDate).format(
-                      "MMMM D, YYYY"
-                    )
-                  : "None"}
-              </span>
-            </p>
-          </div>
+              Latest Project: <p className="text-lg">{latestProject?.name}</p>
+            </li>
+            <li className="font-semibold flex items-center gap-2">
+              <FaDotCircle />
+              Latest Client: <p className="text-lg">{latestClient?.name}</p>
+            </li>
+          </ul>
         </div>
       </div>
-
-      {/* Recent Activity */}
+      {/* Calendar */}
       <div className="bg-gradient-to-tl from-teal-300 via-violet-400 to-pink-500 shadow-lg rounded-lg p-6 mb-12 mx-10">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">Recent Activity</h2>
-          <FaBusinessTime className="text-white text-2xl" />
+          <h2 className="text-xl font-semibold">Upcoming Deadlines</h2>
+          <FaCalendarAlt className="text-white text-2xl" />
         </div>
-        <ul className="space-y-2 px-4">
-          <li className="font-semibold flex items-center gap-2">
+        <div className="space-y-2 px-4">
+          <p className="font-semibold flex items-center gap-2">
             <FaDotCircle />
-            Latest Task: <p className="text-lg">{latestTask?.title}</p>
-          </li>
-          <li className="font-semibold flex items-center gap-2">
+            Task Deadline:{" "}
+            <span className="font-semibold text-white text-lg">
+              {upcomingTaskDeadline?.title},{" "}
+              {upcomingTaskDeadline
+                ? dayjs(upcomingTaskDeadline?.dueDate).format("MMMM D, YYYY")
+                : "None"}
+            </span>
+          </p>
+          <p className="font-semibold flex items-center gap-2">
             <FaDotCircle />
-            Latest Project: <p className="text-lg">{latestProject?.name}</p>
-          </li>
-          <li className="font-semibold flex items-center gap-2">
-            <FaDotCircle />
-            Latest Client: <p className="text-lg">{latestClient?.name}</p>
-          </li>
-        </ul>
+            Project Deadline:{" "}
+            <span className="font-semibold text-white text-lg">
+              {upcomingProjectDeadline?.name},{" "}
+              {upcomingProjectDeadline
+                ? dayjs(upcomingProjectDeadline?.endDate).format("MMMM D, YYYY")
+                : "None"}
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -21,6 +21,11 @@ function ProjectForm() {
 
   const [createProject, { loading, error }] = useMutation(CREATE_PROJECT, {
     refetchQueries: [{ query: GET_PROJECTS }],
+    onCompleted: () => {
+      navigate("/projects", {
+        state: { alertMessage: "Project created successfully!" },
+      });
+    },
   });
 
   const handleSubmit = async (e) => {
@@ -44,7 +49,6 @@ function ProjectForm() {
       setStartDate("");
       setEndDate("");
       setBudget("");
-      navigate("/projects");
     } catch (err) {
       console.error(err);
     }

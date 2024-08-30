@@ -6,17 +6,24 @@ import { GET_CLIENTS } from "../../graphql/queries";
 import { DELETE_CLIENT } from "../../graphql/mutations";
 import getTimeAgo from "../../utils/getTimeAgo.js";
 import ClientEditForm from "./ClientEditForm.jsx";
+import { useLocation } from "react-router-dom";
+import { SuccessAlert } from "../common/SuccessAlert.jsx";
 
 function ClientDetails() {
   const { loading, error, data } = useQuery(GET_CLIENTS);
   const [selectedClient, setSelectedClient] = useState(null);
   const [editingClient, setEditingClient] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-
-  console.log(selectedClient);
+  const location = useLocation();
+  const [showAlert, setShowAlert] = useState(
+    location.state?.alertMessage || ""
+  );
 
   const [deleteClient] = useMutation(DELETE_CLIENT, {
     refetchQueries: [{ query: GET_CLIENTS }],
+    onCompleted: () => {
+      setShowAlert("Client deleted successfully!");
+    },
   });
 
   const handleView = (client) => {
@@ -39,6 +46,14 @@ function ClientDetails() {
 
   return (
     <div className="overflow-x-auto">
+      {showAlert && (
+        <SuccessAlert
+          info={showAlert}
+          onClose={() => {
+            setShowAlert("");
+          }}
+        />
+      )}
       <h1 className="text-3xl tracking-wide antialiased font-semibold mb-4 bg-gradient-to-r from-teal-300 to-pink-500 inline-block text-transparent bg-clip-text">
         Clients
       </h1>

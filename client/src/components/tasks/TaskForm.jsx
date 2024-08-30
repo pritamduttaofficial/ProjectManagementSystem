@@ -22,6 +22,11 @@ const TaskForm = () => {
 
   const [createTask, { loading, error }] = useMutation(CREATE_TASK, {
     refetchQueries: [{ query: GET_ALL_TASKS }],
+    onCompleted: () => {
+      navigate("/tasks", {
+        state: { alertMessage: "Task created successfully!" },
+      });
+    },
   });
 
   const handleSubmit = async (e) => {
@@ -35,12 +40,10 @@ const TaskForm = () => {
           projectId,
         },
       });
-      // Reset the form
       setTitle("");
       setDescription("");
       setDueDate("");
       setProjectId("");
-      navigate("/tasks");
     } catch (err) {
       console.error(err);
     }

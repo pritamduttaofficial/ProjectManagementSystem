@@ -19,11 +19,15 @@ function ProjectDetails() {
 
   const [deleteProject] = useMutation(DELETE_PROJECT, {
     refetchQueries: [{ query: GET_PROJECTS }],
+    onCompleted: () => {
+      navigate("/projects", {
+        state: { alertMessage: "Project deleted successfully!" },
+      });
+    },
   });
 
   const handleDelete = (projectId) => {
     deleteProject({ variables: { deleteProjectId: projectId } });
-    navigate("/projects");
   };
 
   if (loading)
@@ -36,7 +40,7 @@ function ProjectDetails() {
 
   return (
     <div className="mx-10">
-      <h1 className="text-3xl tracking-wide antialiased font-semibold mb-4 bg-gradient-to-r from-teal-300 to-pink-500 inline-block text-transparent bg-clip-text">
+      <h1 className="text-3xl tracking-wide antialiased font-semibold mb-4 bg-gradient-to-r from-teal-300 to-pink-500 inline-block text-transparent bg-clip-text py-4">
         {data.project?.name}
       </h1>
       <div className="flow-root rounded-lg py-4 shadow-sm">

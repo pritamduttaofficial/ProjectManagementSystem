@@ -5,17 +5,25 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import getTimeAgo from "../../utils/getTimeAgo";
 import Loader from "../common/Loader";
 import { DELETE_TASK } from "../../graphql/mutations";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MdAddCircleOutline } from "react-icons/md";
 import TaskEditForm from "./TaskEditForm";
+import { SuccessAlert } from "../common/SuccessAlert";
 
 const TaskDetails = () => {
   const { loading, error, data } = useQuery(GET_ALL_TASKS);
   const navigate = useNavigate();
   const [editingTask, setEditingTask] = useState(null);
+  const location = useLocation();
+  const [showAlert, setShowAlert] = useState(
+    location.state?.alertMessage || ""
+  );
 
   const [deleteTask] = useMutation(DELETE_TASK, {
     refetchQueries: [{ query: GET_ALL_TASKS }],
+    onCompleted: () => {
+      setShowAlert("Task deleted successfully!");
+    },
   });
 
   const handleDelete = (taskId) => {
@@ -32,6 +40,14 @@ const TaskDetails = () => {
 
   return (
     <div className="container mx-auto">
+      {showAlert && (
+        <SuccessAlert
+          info={showAlert}
+          onClose={() => {
+            setShowAlert("");
+          }}
+        />
+      )}
       <div className="flex gap-4 items-center">
         <h1 className="text-3xl tracking-wide antialiased font-semibold mb-4 bg-gradient-to-r from-teal-300 to-pink-500 inline-block text-transparent bg-clip-text">
           Tasks
