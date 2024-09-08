@@ -13,7 +13,7 @@ import TasksPage from "./pages/TasksPage.jsx";
 import Dashboard from "./components/dashboard/dashboard.jsx";
 
 const client = new ApolloClient({
-  uri: "https://projectmanagementsystem.onrender.com",
+  uri: "https://projectmanagementsystem.onrender.com/graphql",
   cache: new InMemoryCache(),
 });
 
