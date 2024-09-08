@@ -71,10 +71,18 @@ const ProjectEditForm = ({ project, closeModal }) => {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-              <option value="NOT_STARTED">Not Started</option>
-              <option value="IN_PROGRESS">In Progress</option>
-              <option value="COMPLETED">Completed</option>
-              <option value="ON_HOLD">On Hold</option>
+              <option value="NOT_STARTED" className="bg-slate-950">
+                NOT STARTED
+              </option>
+              <option value="IN_PROGRESS" className="bg-slate-950">
+                IN PROGRESS
+              </option>
+              <option value="COMPLETED" className="bg-slate-950">
+                COMPLETED
+              </option>
+              <option value="ON_HOLD" className="bg-slate-950">
+                ON HOLD
+              </option>
             </select>
           </div>
           <div className="flex gap-2">

@@ -104,13 +104,13 @@ function ProjectDetails() {
       </div>
       <div className="flex gap-2 mt-4 float-right">
         <button
-          class="flex gap-1 items-center rounded bg-teal-300 px-4 py-2 text-sm font-medium text-black transition hover:scale-105 hover:shadow-xl focus:outline-none active:bg-teal-500"
+          className="flex gap-1 items-center rounded bg-teal-300 px-4 py-2 text-sm font-medium text-black transition hover:scale-105 hover:shadow-xl focus:outline-none active:bg-teal-500"
           onClick={() => setEditingProject(data.project)}
         >
           <MdEdit className="text-xl" /> Edit
         </button>
         <button
-          class="flex gap-1 items-center rounded bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:scale-105 hover:shadow-xl focus:outline-none active:bg-pink-700"
+          className="flex gap-1 items-center rounded bg-pink-600 px-4 py-2 text-sm font-medium text-white transition hover:scale-105 hover:shadow-xl focus:outline-none active:bg-pink-700"
           onClick={() => handleDelete(data.project?.id)}
         >
           <MdDelete className="text-xl" /> Delete
