@@ -23,6 +23,10 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        path: "/",
+        element: <Dashboard />,
+      },
+      {
         path: "/clients",
         element: <ClientsPage />,
       },
@@ -49,10 +53,6 @@ const router = createBrowserRouter([
       {
         path: "/task-form",
         element: <TaskForm />,
-      },
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
       },
     ],
   },

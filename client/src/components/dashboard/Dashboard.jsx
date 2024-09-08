@@ -20,9 +20,7 @@ const Dashboard = () => {
   const { data: clientsData } = useQuery(GET_CLIENTS);
   const { data: projectsData } = useQuery(GET_PROJECTS);
   const { data: tasksData } = useQuery(GET_ALL_TASKS);
-  console.log(clientsData);
-  console.log(projectsData);
-  console.log(tasksData);
+
   const currentDate = dayjs();
 
   const totalBudget = projectsData?.projects?.reduce(
@@ -44,8 +42,6 @@ const Dashboard = () => {
         ? task
         : nearest;
     }, null);
-
-  console.log(upcomingTaskDeadline);
 
   // Calculate upcoming project deadline
   const upcomingProjectDeadline = projectsData?.projects
