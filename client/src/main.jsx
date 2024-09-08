@@ -10,7 +10,7 @@ import ProjectsPage from "./pages/ProjectsPage.jsx";
 import ProjectDetails from "./components/projects/ProjectDetails.jsx";
 import TaskForm from "./components/tasks/TaskForm.jsx";
 import TasksPage from "./pages/TasksPage.jsx";
-import Dashboard from "./components/dashboard/dashboard.jsx";
+import DashboardPage from "./pages/DashboardPage.jsx";
 
 const client = new ApolloClient({
   uri: "https://projectmanagementsystem.onrender.com/graphql",
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Dashboard />,
+        element: <DashboardPage />,
       },
       {
         path: "/clients",
